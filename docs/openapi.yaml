@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: Person Endpoints
+  description: This is a person API from Udacity
+  version: 1.0.0
+servers:
+# Added by API Auto Mocking Plugin
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/CHANDRALEKHABANERJI/udaconnect/1.0.0
+- url: http://localhost:30001/
+  description: Person API - Udacity Cloud
+paths:
+  /api/persons:
+    get:
+      summary: gets information about existing user
+      description: |
+        Gets the information about all users in the PersonAPI
+      operationId: getAllPersons
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        "400":
+          description: bad input parameter
+        "404":
+          description: page not found
+    post:
+      summary: creates a new person record
+      description: |
+        By passing the correct information, you can create a
+        new person/user to the system
+      operationId: createPerson
+      requestBody:
+        description: Optional description in *Markdown*
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonNoId'
+        required: true
+      responses:
+        "201":
+          description: created new person
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        "400":
+          description: bad input parameter
+  /api/persons/{personId}:
+    get:
+      summary: gets person information by id
+      description: |
+        Gets person information by id
+      operationId: getPersonById
+      parameters:
+      - name: personId
+        in: path
+        description: Numeric ID of the user to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        "400":
+          description: bad input parameter
+        "404":
+          description: page not found
+components:
+  schemas:
+    Person:
+      required:
+      - company_name
+      - first_name
+      - id
+      - last_name
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        first_name:
+          type: string
+          example: Chandralekha
+        last_name:
+          type: string
+          example: Banerji
+        company_name:
+          type: string
+          example: Udacity
+    PersonNoId:
+      required:
+      - company_name
+      - first_name
+      - last_name
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: Chandralekha
+        last_name:
+          type: string
+          example: Banerji
+        company_name:
+          type: string
+          example: Udacity

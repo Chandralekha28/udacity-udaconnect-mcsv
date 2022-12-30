@@ -1,0 +1,7 @@
+1. receiveLocation microservice gets user coordinates sent by mobiles devices. This communication is established using gRPC. The message by the user containing their location can easily follow a rigid schema. gRPC would be faster and more robust while users are sending data concurrently.
+
+2. Kafka is appropriate for handling large volumes of data generated continuously as events. Hence a Kafka cluster gets the location data from receiveLocation microservice, to be consumed by processLocation microservice.
+
+3. Connection microservice interacts through a RESTFul API with the React Frontend.
+Person Microservice is another RESTFul API service responsible for user details.
+Connection Microservice gets data from Person microservice when a request is made to find out possible connections for a particular user.
